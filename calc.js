@@ -40,7 +40,7 @@ document.addEventListener("click", clicked);
            displayContent = "";
        case "equals":
            listNumbers.push(convertToNumber(display.value));
-           doCalculations();
+           displayContent = doCalculations();
            break;
    }
    }
@@ -55,11 +55,31 @@ document.addEventListener("click", clicked);
  }
 
  function doCalculations () {
-   displayContent = "";
-   console.log("do math");
    console.log(listNumbers);
    console.log(listOperators);
+   let num1 = listNumbers.splice(0,1);
+   let num2 = listNumbers.splice(0,1);
+   let operator = listOperators.splice(0,1);
+   console.log(num1+" "+operator+" "+num2)
+   let result = doOperation(num1, num2, operator);
+ if (listOperators.length==0) {
+   return result;
  }
+ else {
+   listNumbers.unshift(result);
+   return doCalculations ();}
+}
+
+function doOperation (num1, num2, operator) {
+if (operator=="add") {
+  return Number(num1)+Number(num2);}
+  else if (operator=="subtract") {
+    return num1 - num2; }
+    else if (operator=="multiply") {
+      return num1 * num2; }
+      else if (operator=="divide") {
+        return num1/num2; }
+      }
 
  function convertToNumber(n) {
    let int = parseInt(n)
