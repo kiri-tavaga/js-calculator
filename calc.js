@@ -7,28 +7,20 @@ document.addEventListener("click", clicked);
  var listOperators;
  var calculatedNumber;
 
- function reset ()
- {
+ function reset () {
    display = document.getElementById("display")
    displayContent = "";
    listNumbers = [];
    listOperators = [];
    updateDisplay();
  }
-
- function clicked(e)
- {
-   var buttonClicked = e.target;
-   if (buttonClicked.classList.contains("number"))
-   {
-       displayContent += buttonClicked.innerHTML;
-   }
-   else if (buttonClicked.classList.contains("operator"))
-   {
-     addCalculation(buttonClicked.id);
-   }
-   else
-   {
+ function clicked(event){
+   var buttonClicked = event.target;
+   if (buttonClicked.classList.contains("number")){
+       displayContent += buttonClicked.innerHTML;}
+   else if (buttonClicked.classList.contains("operator")) {
+     addCalculation(buttonClicked.id);}
+   else{
      switch(buttonClicked.id) {
        case "decimal":
            if (!displayContent.includes(".")) displayContent += ".";
@@ -41,19 +33,16 @@ document.addEventListener("click", clicked);
        case "equals":
            listNumbers.push(convertToNumber(display.value));
            displayContent = doCalculations();
-           break;
-   }
+           break; }
    }
    updateDisplay();
  }
-
  function addCalculation (operator) {
    listNumbers.push(convertToNumber(display.value));
    listOperators.push(operator);
    displayContent = "";
    updateDisplay();
  }
-
  function doCalculations () {
    console.log(listNumbers);
    console.log(listOperators);
@@ -63,13 +52,11 @@ document.addEventListener("click", clicked);
    console.log(num1+" "+operator+" "+num2)
    let result = doOperation(num1, num2, operator);
  if (listOperators.length==0) {
-   return result;
- }
+   return result;}
  else {
    listNumbers.unshift(result);
    return doCalculations ();}
 }
-
 function doOperation (num1, num2, operator) {
 if (operator=="add") {
   return Number(num1)+Number(num2);}
@@ -80,15 +67,12 @@ if (operator=="add") {
       else if (operator=="divide") {
         return num1/num2; }
       }
-
- function convertToNumber(n) {
+function convertToNumber(n) {
    let int = parseInt(n)
    if (isNaN(int)) {
-     return 0;
-   }
+     return 0;}
    return int;
  }
-
- function updateDisplay () {
+function updateDisplay () {
    display.value = displayContent;
  }
